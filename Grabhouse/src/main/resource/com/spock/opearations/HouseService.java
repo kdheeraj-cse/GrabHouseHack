@@ -58,9 +58,11 @@ public class HouseService {
 	
 	public void updateExpiredKeys(){
 		for(String key : House.lockKeys.keySet()){
-			House.lockKeys.get(key)[0] = "false";
-			House.lockKeys.get(key)[1] = new Date().toLocaleString();
-			House.lockKeys.get(key)[2] = "0";
+			if(House.lockKeys.get(key)[0]=="true"){
+				House.lockKeys.get(key)[0] = "false";
+				House.lockKeys.get(key)[1] = new Date().toLocaleString();
+				House.lockKeys.get(key)[2] = "0";
+			}
 		}
 	}
 

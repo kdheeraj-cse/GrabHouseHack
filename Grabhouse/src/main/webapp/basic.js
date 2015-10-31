@@ -8,20 +8,33 @@ function makeAjaxCalls(url,dcallback,param){
 	}).done(dcallback);
 }
 
+$.each($('.options'),function(i,val){
+	$(val).attr('disabled',true);
+});
+
+$('.reqcheck').removeAttr('disabled');
+
 //Poll request to see if any customer has requested to Owner regarding viewing House
 function seeCustomerRequestMade(){
-	var url='http://192.168.1.114:7070/Grabhouse/rest/api/pollRequest';
+	var url='http://localhost:7070/Grabhouse/rest/api/pollRequest';
 	makeAjaxCalls(url,requestDoneHandler);
 }
 
 //Handler function for request made by customer
 function requestDoneHandler(data){
-	alert(data);
+	if(data==='yes'){
+		alert(data);
+		$.each($('.options'),function(i,val){
+			$(val).removeAttr('disabled');
+		});
+	}else{
+		alert(" All feature disabled as no customer request happened");
+	}
 }
 
 //Request from customer to Owner 
 function requestOwner(){
-	var url='http://192.168.1.114:7070/Grabhouse/rest/api/putRequest';
+	var url='http://localhost:7070/Grabhouse/rest/api/putRequest';
 	//Considering we get customer ID from the authentication services, Passing hardcoded customer id
 	var params={
 			"userId":'Customer_xb23na'
@@ -36,7 +49,7 @@ function requestOwnerHandler(data){
 
 //Update the expired keys for lock
 function updateKey(){
-	var url='http://192.168.1.114:7070/Grabhouse/rest/api/updateAllKeys';
+	var url='http://localhost:7070/Grabhouse/rest/api/updateAllKeys';
 	makeAjaxCalls(url,updateHandler);
 }
 
@@ -47,7 +60,7 @@ function updateHandler(data){
 
 //Owner Generates lock key for Customer
 function generateKey(){
-	var url='http://192.168.1.114:7070/Grabhouse/rest/api/getLockKey';
+	var url='http://localhost:7070/Grabhouse/rest/api/getLockKey';
 	makeAjaxCalls(url,generateKeyHandler);
 }
 
@@ -58,7 +71,7 @@ function generateKeyHandler(data){
 
 //Validate key
 function validateKeyToUnlock(keytocheck){
-	var url='http://192.168.1.114:7070/Grabhouse/rest/api/unlockHouse';
+	var url='http://localhost:7070/Grabhouse/rest/api/unlockHouse';
 	var param={
 			"key":keytocheck
 	};
@@ -72,7 +85,7 @@ function validateKeyHandler(data){
 
 //Once customer goes, Owner can lock the house
 function lockHouse(){
-	var url='http://192.168.1.114:7070/Grabhouse/rest/api/lockHouse';
+	var url='http://localhost:7070/Grabhouse/rest/api/lockHouse';
 	makeAjaxCalls(url,lockHandler);
 }
 
