@@ -22,13 +22,15 @@ function seeCustomerRequestMade(){
 
 //Handler function for request made by customer
 function requestDoneHandler(data){
-	if(data==='yes'){
-		alert(data);
+	if(data!=='no'){
+		$("#result").text("One customer with id "+data+" requested for your property\n Please generate lock key and send to customer");
+		//alert(data);
 		$.each($('.options'),function(i,val){
 			$(val).removeAttr('disabled');
 		});
 	}else{
-		alert(" All feature disabled as no customer request happened");
+		$("#result").text("No customer requested for a visit to your property");
+		//alert(" All feature disabled as no customer request happened");
 	}
 }
 
@@ -44,7 +46,8 @@ function requestOwner(){
 
 //Handler function for the request done 
 function requestOwnerHandler(data){
-	alert(data);
+	$("#result").text(data);
+	//alert(data);
 }
 
 //Update the expired keys for lock
@@ -55,7 +58,8 @@ function updateKey(){
 
 //Update handler
 function updateHandler(data){
-	alert(data);
+	$("#result").text(data);
+	//alert(data);
 }
 
 //Owner Generates lock key for Customer
@@ -66,7 +70,7 @@ function generateKey(){
 
 //Lock key generation handler
 function generateKeyHandler(data){
-	alert('Here is your key '+ data);
+	$("#result").text('Here is your key '+ data +'\n Please pass it to the customer');
 }
 
 //Validate key
@@ -80,7 +84,8 @@ function validateKeyToUnlock(keytocheck){
 
 //Validate key handler
 function validateKeyHandler(data){
-	alert(data);
+	//alert(data);
+	$("#result").text(data);
 }
 
 //Once customer goes, Owner can lock the house
@@ -91,7 +96,7 @@ function lockHouse(){
 
 //lock handler 
 function lockHandler(data){
-	alert(data);
+	$("#result").text(data);
 }
 
 $('.unlock').on('click',function(){

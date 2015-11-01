@@ -3,6 +3,7 @@ package com.spock.opearations;
 import java.util.Date;
 
 import com.spock.exceptions.NoValidKeyFoundException;
+import com.spock.modal.Customer;
 import com.spock.modal.House;
 
 @SuppressWarnings("deprecation")
@@ -19,6 +20,7 @@ public class HouseService {
 			return "House already locked";
 		} else {
 			_house.setlockState("locked");
+			House.setRequestState(false);
 		}
 		return "locked Successfully";
 	}
@@ -28,6 +30,7 @@ public class HouseService {
 	}
 	
 	public String unlockHouse(String lockKey) {
+		System.out.println(lockKey);
 		if (_house.getlockState().equals("unlocked")) {
 			return "House already unlocked";
 		}
@@ -68,20 +71,20 @@ public class HouseService {
 
 	public String pollRequest() {
 		if(House.getRequestState()){
-			return "yes";
+			return Customer.getCustomername();
 		}
 		else{
 			return "no";
 		}
 	}
 	
-	public String putRequest() {
+	public String putRequest(String id) {
 		if(House.getRequestState()){
-			return "Requested Already";
+			return "You already placed a request for the visit";
 		}else{
 			House.setRequestState(true);
-			return "Request Placed";
+			Customer.setCustomername(id);
+			return "Request Placed Successfully, Please wait Owner will contact you with keys";
 		}
-	}
-	
+	}	
 }

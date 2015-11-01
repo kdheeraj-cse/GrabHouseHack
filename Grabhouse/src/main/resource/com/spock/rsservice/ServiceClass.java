@@ -54,7 +54,7 @@ public class ServiceClass {
 	@GET	
 	@Path("/pollRequest")
 	@Produces(MediaType.TEXT_PLAIN)
-	public Response pollRequest() {
+	public Response pollRequest(@QueryParam("userId") String id) {
 		String status = objService.pollRequest();
 		return Response.status(200).entity(status).build();
 	}
@@ -62,8 +62,8 @@ public class ServiceClass {
 	@GET	
 	@Path("/putRequest")
 	@Produces(MediaType.TEXT_PLAIN)
-	public Response putRequest() {
-		String reqStatus = objService.putRequest();
+	public Response putRequest(@QueryParam("userId") String id) {
+		String reqStatus = objService.putRequest(id);
 		return Response.status(200).entity(reqStatus).build();
 	}
 }
